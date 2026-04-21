@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Brisch Key Programming Giants</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;600;700&family=Barlow+Condensed:wght@400;700;900&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #F0D080;
+    --gold-dim: #8a6f2e;
+    --black: #080808;
+    --dark: #0f0f0f;
+    --panel: #141414;
+    --blue: #1a4fa0;
+    --blue-bright: #2a6dd9;
+    --blue-glow: #4488ff;
+    --white: #f0eeea;
+    --muted: #888;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── KEYFRAME ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+  }
+  @keyframes rotateSlow {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  @keyframes keyFloat {
+    0%, 100% { transform: translateY(0) rotate(-15deg); }
+    50%       { transform: translateY(-18px) rotate(-10deg); }
+  }
+  @keyframes keyFloat2 {
+    0%, 100% { transform: translateY(0) rotate(20deg); }
+    50%       { transform: translateY(-24px) rotate(25deg); }
+  }
+  @keyframes pulse-glow {
+    0%, 100% { filter: drop-shadow(0 0 8px var(--gold)); }
+    50%       { filter: drop-shadow(0 0 22px var(--gold-light)); }
+  }
+  @keyframes scanline {
+    0%   { top: -10%; }
+    100% { top: 110%; }
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
+  @keyframes orbitKey {
+    from { transform: rotate(0deg) translateX(80px) rotate(0deg); }
+    to   { transform: rotate(360deg) translateX(80px) rotate(-360deg); }
+  }
+  @keyframes ripple {
+    0%   { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(2.5); opacity: 0; }
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    height: 72px;
+    background: linear-gradient(to bottom, rgba(8,8,8,0.98), rgba(8,8,8,0.7));
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    backdrop-filter: blur(12px);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+  }
+  .nav-logo span { color: var(--blue-bright); }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.25s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 100px 0 60px;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 75% 50%, rgba(26,79,160,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 50% at 20% 60%, rgba(201,168,76,0.08) 0%, transparent 60%),
+      var(--black);
+  }
+  /* diagonal gold line */
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, transparent 48%, rgba(201,168,76,0.04) 49%, rgba(201,168,76,0.04) 51%, transparent 52%);
+  }
+  /* scanline effect */
+  .hero-scan {
+    position: absolute;
+    left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, transparent, rgba(201,168,76,0.15), transparent);
+    animation: scanline 6s linear infinite;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 700px;
+    padding: 0 80px;
+    animation: fadeUp 1s ease both;
+  }
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--blue-bright);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 2px;
+    background: var(--blue-bright);
+  }
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 9vw, 8rem);
+    line-height: 0.92;
+    letter-spacing: 0.03em;
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dim) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s linear infinite;
+    margin-bottom: 12px;
+  }
+  h1 .line2 {
+    background: linear-gradient(135deg, var(--white) 0%, #aaa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: none;
+  }
+  .hero-tagline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--blue-bright);
+    margin: 20px 0 36px;
+    font-weight: 700;
+  }
+  .hero-tagline span {
+    color: var(--gold);
+    animation: blink 2.5s step-end infinite;
+  }
+  .hero-desc {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #a0a0a0;
+    max-width: 440px;
+    margin-bottom: 48px;
+  }
+
+  .btn-group { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+    color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+    transition: filter 0.25s, transform 0.2s;
+  }
+  .btn-primary:hover { filter: brightness(1.2); transform: translateY(-2px); }
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 32px;
+    background: transparent;
+    color: var(--gold);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid rgba(201,168,76,0.5);
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+    transition: border-color 0.25s, background 0.25s;
+  }
+  .btn-outline:hover { border-color: var(--gold); background: rgba(201,168,76,0.07); }
+
+  /* ─── ANIMATED KEY SCENE ─── */
+  .hero-visual {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 45%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+  }
+  .key-scene {
+    position: relative;
+    width: 380px;
+    height: 380px;
+  }
+  /* orbit rings */
+  .ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.12);
+    animation: rotateSlow 20s linear infinite;
+  }
+  .ring:nth-child(2) {
+    inset: 30px;
+    border-color: rgba(42,109,217,0.15);
+    animation-duration: 30s;
+    animation-direction: reverse;
+  }
+  .ring:nth-child(3) {
+    inset: 60px;
+    border-color: rgba(201,168,76,0.08);
+    animation-duration: 15s;
+  }
+  /* ripple */
+  .ripple-ring {
+    position: absolute;
+    inset: 90px;
+    border-radius: 50%;
+    border: 2px solid rgba(201,168,76,0.3);
+    animation: ripple 3s ease-out infinite;
+  }
+  .ripple-ring:nth-child(5) { animation-delay: 1.5s; }
+
+  /* central key icon */
+  .center-key {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+
+  /* floating small keys */
+  .float-key {
+    position: absolute;
+    animation: keyFloat 4s ease-in-out infinite;
+  }
+  .float-key:nth-child(7) {
+    top: 10%; left: 12%;
+    animation-duration: 5s;
+    animation-delay: 0.5s;
+  }
+  .float-key:nth-child(8) {
+    bottom: 14%; right: 10%;
+    animation: keyFloat2 4.5s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+  .float-key:nth-child(9) {
+    top: 60%; left: 4%;
+    animation-duration: 3.5s;
+    animation-delay: 2s;
+    opacity: 0.5;
+  }
+  /* dot on ring */
+  .ring-dot {
+    position: absolute;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 10px var(--gold);
+    top: 50%; left: 50%;
+    animation: orbitKey 8s linear infinite;
+    transform-origin: 0 0;
+  }
+  .ring-dot.blue {
+    background: var(--blue-glow);
+    box-shadow: 0 0 10px var(--blue-glow);
+    animation-duration: 12s;
+    animation-direction: reverse;
+    width: 6px; height: 6px;
+  }
+
+  /* ─── STATS BAR ─── */
+  .stats-bar {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    border-top: 1px solid rgba(201,168,76,0.15);
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+  }
+  .stat-item {
+    flex: 1;
+    padding: 28px 40px;
+    border-right: 1px solid rgba(201,168,76,0.1);
+    animation: fadeUp 0.8s ease both;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-item:nth-child(2) { animation-delay: 0.1s; }
+  .stat-item:nth-child(3) { animation-delay: 0.2s; }
+  .stat-item:nth-child(4) { animation-delay: 0.3s; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-family: 'Barlow Condensed', sans-serif;
+  }
+
+  /* ─── SECTION COMMON ─── */
+  section { position: relative; z-index: 2; }
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 60px;
+  }
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--blue-bright);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 2px;
+    background: var(--blue-bright);
+  }
+  h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: 0.05em;
+    line-height: 1;
+    color: var(--white);
+    margin-bottom: 48px;
+  }
+  h2 em {
+    font-style: normal;
+    color: var(--gold);
+  }
+
+  /* ─── SERVICES ─── */
+  .services-bg {
+    background: linear-gradient(135deg, var(--dark) 0%, var(--black) 100%);
+    border-top: 1px solid rgba(201,168,76,0.08);
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: rgba(201,168,76,0.08);
+  }
+  .service-card {
+    background: var(--panel);
+    padding: 44px 36px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--blue), var(--gold));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .service-card:hover { background: #1a1a1a; }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-icon {
+    width: 52px; height: 52px;
+    margin-bottom: 24px;
+    color: var(--gold);
+    transition: transform 0.3s;
+  }
+  .service-card:hover .service-icon { transform: scale(1.1) rotate(-5deg); }
+  .service-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+  .service-desc {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+  .service-badge {
+    display: inline-block;
+    margin-top: 20px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--blue-bright);
+    border: 1px solid rgba(42,109,217,0.4);
+    padding: 4px 12px;
+  }
+
+  /* ─── PRICING ─── */
+  .pricing-bg {
+    background: var(--black);
+  }
+  .pricing-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+    background: rgba(201,168,76,0.06);
+    margin-bottom: 3px;
+  }
+  .price-card {
+    background: var(--panel);
+    padding: 48px 44px;
+    position: relative;
+    overflow: hidden;
+  }
+  .price-card.featured {
+    background: linear-gradient(135deg, #0d1a33, #0a0f1e);
+    border-left: 3px solid var(--blue);
+  }
+  .price-card.featured::after {
+    content: 'MOST POPULAR';
+    position: absolute;
+    top: 20px; right: -30px;
+    background: var(--blue);
+    color: white;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    padding: 5px 40px;
+    transform: rotate(45deg);
+  }
+  .price-category {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .price-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--white);
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+  .price-range {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    color: var(--gold);
+    letter-spacing: 0.03em;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .price-range span {
+    font-family: 'Barlow', sans-serif;
+    font-size: 1rem;
+    color: var(--muted);
+    font-weight: 300;
+  }
+  .price-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .price-icon {
+    float: right;
+    color: rgba(201,168,76,0.2);
+    margin-top: -8px;
+  }
+
+  /* ─── INFO / HOURS ─── */
+  .info-bg {
+    background: linear-gradient(135deg, #0a0a0a, var(--dark));
+    border-top: 1px solid rgba(201,168,76,0.08);
+  }
+  .info-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .info-block { margin-bottom: 48px; }
+  .info-block:last-child { margin-bottom: 0; }
+  .info-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 12px;
+  }
+  .info-value {
+    font-size: 1.05rem;
+    color: var(--white);
+    line-height: 1.6;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .info-value svg { flex-shrink: 0; margin-top: 2px; color: var(--gold); }
+
+  /* hours table */
+  .hours-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 24px;
+    margin-top: 8px;
+  }
+  .hours-day {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .hours-time {
+    font-size: 0.9rem;
+    color: var(--white);
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-weight: 600;
+  }
+  .hours-time.closed {
+    color: #664444;
+    font-weight: 400;
+  }
+  .hours-time.open { color: #5a9e6f; }
+
+  /* side decorative key panel */
+  .info-key-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px;
+    background: var(--panel);
+    border: 1px solid rgba(201,168,76,0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  .info-key-panel::before {
+    content: '';
+    position: absolute;
+    top: -40%; left: -40%;
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(26,79,160,0.15) 0%, transparent 70%);
+  }
+  .big-key-svg {
+    animation: pulse-glow 3s ease-in-out infinite;
+    margin-bottom: 32px;
+  }
+  .motto {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.1em;
+    text-align: center;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+  .motto-sub {
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blue-bright);
+    text-align: center;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid rgba(201,168,76,0.15);
+    background: #050505;
+    position: relative;
+    z-index: 2;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 48px 60px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .footer-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+  }
+  .footer-brand span { color: var(--blue-bright); }
+  .footer-copy {
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+  .footer-contact {
+    font-size: 0.85rem;
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-end;
+  }
+  .footer-contact a {
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 960px) {
+    .hero-visual { display: none; }
+    .hero-content { padding: 0 40px; }
+    nav { padding: 0 24px; }
+    .nav-links { gap: 20px; }
+    .section-inner { padding: 72px 32px; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .pricing-layout { grid-template-columns: 1fr; }
+    .info-layout { grid-template-columns: 1fr; gap: 48px; }
+    .stats-bar { flex-wrap: wrap; }
+    .stat-item { min-width: 50%; border-right: none; border-bottom: 1px solid rgba(201,168,76,0.1); }
+    .footer-inner { flex-direction: column; align-items: flex-start; }
+    .footer-contact { align-items: flex-start; }
+  }
+  @media (max-width: 600px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .hero-content { padding: 0 24px; }
+    .nav-links { display: none; }
+    .section-inner { padding: 56px 20px; }
+    .price-card { padding: 32px 24px; }
+    .stat-item { min-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">BRISCH<span>.</span>KEYS</div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-scan"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Kanyama, Lusaka — Est. Brisch</p>
+    <h1>
+      KEY<br>
+      <span class="line2">PROGRAMMING</span><br>
+      GIANTS
+    </h1>
+    <p class="hero-tagline">Any Key <span>|</span> Any Time</p>
+    <p class="hero-desc">
+      Zambia's trusted specialists in automotive key programming and precision key cutting.
+      Professional, fast, and reliable — at Puma Filling Station, Kanyama.
+    </p>
+    <div class="btn-group">
+      <a href="tel:0977533220" class="btn-primary">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 01.36 2.84 2 2 0 012.34 1h3a2 2 0 012 1.72c.13 1 .38 1.97.74 2.91a2 2 0 01-.45 2.11L6.91 8.96a16 16 0 006.13 6.13l1.22-.82a2 2 0 012.11-.45c.94.36 1.91.61 2.91.74A2 2 0 0122 16.92z"/></svg>
+        Call Now
+      </a>
+      <a href="#pricing" class="btn-outline">View Pricing</a>
+    </div>
+  </div>
+
+  <!-- KEY ANIMATION SCENE -->
+  <div class="hero-visual">
+    <div class="key-scene">
+      <!-- orbit rings -->
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <!-- ripple -->
+      <div class="ripple-ring"></div>
+      <div class="ripple-ring"></div>
+      <!-- orbit dots -->
+      <div class="ring-dot"></div>
+      <div class="ring-dot blue"></div>
+
+      <!-- Central large key SVG -->
+      <div class="center-key">
+        <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- key bow -->
+          <circle cx="40" cy="40" r="28" stroke="#C9A84C" stroke-width="6" fill="none"/>
+          <circle cx="40" cy="40" r="16" stroke="#C9A84C" stroke-width="3" fill="none" opacity="0.5"/>
+          <circle cx="40" cy="40" r="6" fill="#C9A84C" opacity="0.8"/>
+          <!-- key blade -->
+          <rect x="62" y="37" width="52" height="6" rx="3" fill="#C9A84C"/>
+          <!-- teeth -->
+          <rect x="72" y="43" width="6" height="12" rx="2" fill="#C9A84C" opacity="0.85"/>
+          <rect x="86" y="43" width="6" height="9" rx="2" fill="#C9A84C" opacity="0.85"/>
+          <rect x="100" y="43" width="6" height="14" rx="2" fill="#C9A84C" opacity="0.85"/>
+          <!-- glow overlay -->
+          <circle cx="40" cy="40" r="32" fill="url(#glow)" opacity="0.15"/>
+          <defs>
+            <radialGradient id="glow" cx="50%" cy="50%">
+              <stop offset="0%" stop-color="#F0D080"/>
+              <stop offset="100%" stop-color="#C9A84C" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <!-- Floating small keys -->
+      <div class="float-key">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="10" stroke="#2a6dd9" stroke-width="2.5" fill="none"/>
+          <circle cx="16" cy="16" r="4" fill="#2a6dd9" opacity="0.7"/>
+          <rect x="24" y="14.5" width="20" height="3" rx="1.5" fill="#2a6dd9" opacity="0.8"/>
+          <rect x="27" y="17.5" width="3" height="5" rx="1" fill="#2a6dd9" opacity="0.7"/>
+          <rect x="34" y="17.5" width="3" height="4" rx="1" fill="#2a6dd9" opacity="0.7"/>
+        </svg>
+      </div>
+      <div class="float-key">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="14" cy="14" r="9" stroke="#C9A84C" stroke-width="2" fill="none" opacity="0.7"/>
+          <rect x="21" y="12" width="16" height="4" rx="2" fill="#C9A84C" opacity="0.6"/>
+          <rect x="25" y="16" width="4" height="5" rx="1" fill="#C9A84C" opacity="0.5"/>
+          <rect x="31" y="16" width="4" height="4" rx="1" fill="#C9A84C" opacity="0.5"/>
+        </svg>
+      </div>
+      <div class="float-key">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="10" cy="10" r="7" stroke="#4488ff" stroke-width="2" fill="none" opacity="0.5"/>
+          <rect x="16" y="8.5" width="13" height="3" rx="1.5" fill="#4488ff" opacity="0.4"/>
+          <rect x="19" y="11.5" width="3" height="4" rx="1" fill="#4488ff" opacity="0.4"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">100<span style="font-size:1.4rem;color:var(--gold-dim)">%</span></div>
+    <div class="stat-label">Professional Service</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">6</div>
+    <div class="stat-label">Days a Week</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">K150<span style="font-size:1.2rem;color:var(--gold-dim)">+</span></div>
+    <div class="stat-label">Starting from</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">24/7<span style="font-size:1.2rem;color:var(--gold-dim)">*</span></div>
+    <div class="stat-label">Emergency Calls</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services-bg" id="services">
+  <div class="section-inner">
+    <p class="section-label">What We Do</p>
+    <h2>Our <em>Services</em></h2>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <svg class="service-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Car key with chip symbol -->
+          <rect x="2" y="14" width="26" height="18" rx="4" stroke="currentColor" stroke-width="2.5" fill="none"/>
+          <rect x="6" y="18" width="18" height="10" rx="2" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.5"/>
+          <circle cx="15" cy="23" r="3" fill="currentColor" opacity="0.7"/>
+          <rect x="28" y="21.5" width="20" height="3" rx="1.5" fill="currentColor"/>
+          <rect x="34" y="24.5" width="4" height="6" rx="1" fill="currentColor" opacity="0.8"/>
+          <rect x="42" y="24.5" width="4" height="8" rx="1" fill="currentColor" opacity="0.8"/>
+          <!-- signal waves -->
+          <path d="M3 10 Q8 6 13 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.5"/>
+          <path d="M1 7 Q8 1 15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.3"/>
+        </svg>
+        <div class="service-name">Car Key Programming</div>
+        <div class="service-desc">Full remote and transponder key programming for all makes and models. Your car security, professionally handled.</div>
+        <div class="service-badge">Most Requested</div>
+      </div>
+
+      <div class="service-card">
+        <svg class="service-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- ordinary car key -->
+          <circle cx="16" cy="20" r="11" stroke="currentColor" stroke-width="2.5" fill="none"/>
+          <circle cx="16" cy="20" r="5" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.5"/>
+          <circle cx="16" cy="20" r="2" fill="currentColor" opacity="0.7"/>
+          <rect x="26" y="18" width="24" height="4" rx="2" fill="currentColor"/>
+          <rect x="30" y="22" width="4" height="7" rx="1" fill="currentColor" opacity="0.8"/>
+          <rect x="38" y="22" width="4" height="5" rx="1" fill="currentColor" opacity="0.8"/>
+          <rect x="46" y="22" width="4" height="9" rx="1" fill="currentColor" opacity="0.8"/>
+        </svg>
+        <div class="service-name">Ordinary Car Keys</div>
+        <div class="service-desc">Standard mechanical car key cutting — precise, fast, and affordable. Walk in, drive out.</div>
+        <div class="service-badge">K150 – K250</div>
+      </div>
+
+      <div class="service-card">
+        <svg class="service-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- house/door key -->
+          <circle cx="14" cy="18" r="10" stroke="currentColor" stroke-width="2.5" fill="none"/>
+          <circle cx="14" cy="18" r="4" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.4"/>
+          <rect x="23" y="15.5" width="27" height="5" rx="2" fill="currentColor"/>
+          <!-- door key teeth -->
+          <rect x="30" y="20.5" width="4" height="8" rx="1.5" fill="currentColor" opacity="0.8"/>
+          <rect x="38" y="20.5" width="4" height="6" rx="1.5" fill="currentColor" opacity="0.8"/>
+          <rect x="46" y="20.5" width="4" height="10" rx="1.5" fill="currentColor" opacity="0.8"/>
+        </svg>
+        <div class="service-name">Door Key Cutting</div>
+        <div class="service-desc">Residential and commercial door keys cut to precision. Duplicate or original, we handle both.</div>
+        <div class="service-badge">K70 – K200</div>
+      </div>
+
+      <div class="service-card">
+        <svg class="service-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- remote/fob -->
+          <rect x="8" y="6" width="22" height="36" rx="6" stroke="currentColor" stroke-width="2.5" fill="none"/>
+          <rect x="13" y="11" width="12" height="8" rx="2" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.5"/>
+          <circle cx="19" cy="27" r="3" fill="currentColor" opacity="0.7"/>
+          <circle cx="11" cy="27" r="3" fill="currentColor" opacity="0.4"/>
+          <circle cx="27" cy="27" r="3" fill="currentColor" opacity="0.4"/>
+          <circle cx="19" cy="35" r="3" fill="currentColor" opacity="0.4"/>
+          <!-- signal -->
+          <path d="M36 18 Q42 14 48 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
+          <path d="M38 22 Q42 19 46 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.4"/>
+        </svg>
+        <div class="service-name">Remote Key Fobs</div>
+        <div class="service-desc">Remote control key fob programming and replacement for all vehicle brands. Quick turnaround guaranteed.</div>
+        <div class="service-badge">Ask for Quote</div>
+      </div>
+
+      <div class="service-card">
+        <svg class="service-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- wrench + key combo -->
+          <path d="M10 42 L30 22" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="34" cy="18" r="8" stroke="currentColor" stroke-width="2.5" fill="none"/>
+          <circle cx="34" cy="18" r="3" fill="currentColor" opacity="0.6"/>
+          <circle cx="8" cy="44" r="4" stroke="currentColor" stroke-width="2" fill="none" opacity="0.6"/>
+          <path d="M44 8 L48 4 L48 8 L44 8 L40 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.5"/>
+        </svg>
+        <div class="service-name">Key Extraction</div>
+        <div class="service-desc">Broken key stuck in lock or ignition? We extract and replace with speed and care. No locksmith drama.</div>
+        <div class="service-badge">Emergency Available</div>
+      </div>
+
+      <div class="service-card">
+        <svg class="service-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- padlock -->
+          <rect x="10" y="22" width="32" height="24" rx="4" stroke="currentColor" stroke-width="2.5" fill="none"/>
+          <path d="M18 22 V16 A8 8 0 0 1 34 16 V22" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <circle cx="26" cy="34" r="4" fill="currentColor" opacity="0.7"/>
+          <rect x="24" y="34" width="4" height="6" rx="2" fill="currentColor" opacity="0.5"/>
+        </svg>
+        <div class="service-name">Lock Services</div>
+        <div class="service-desc">Lock replacement, rekeying, and security consultations for homes and vehicles across Kanyama.</div>
+        <div class="service-badge">Enquire</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-bg" id="pricing">
+  <div class="section-inner">
+    <p class="section-label">Transparent Rates</p>
+    <h2>Simple <em>Pricing</em></h2>
+    <div class="pricing-layout">
+
+      <div class="price-card featured">
+        <svg class="price-icon" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="12" width="22" height="15" rx="3" stroke="#2a6dd9" stroke-width="2" fill="none"/>
+          <rect x="8" y="16" width="14" height="7" rx="1.5" stroke="#2a6dd9" stroke-width="1.5" fill="none" opacity="0.4"/>
+          <circle cx="15" cy="19.5" r="2" fill="#2a6dd9" opacity="0.6"/>
+          <rect x="26" y="17.5" width="18" height="4" rx="2" fill="#2a6dd9" opacity="0.6"/>
+          <rect x="30" y="21.5" width="3" height="5" rx="1" fill="#2a6dd9" opacity="0.5"/>
+          <rect x="37" y="21.5" width="3" height="7" rx="1" fill="#2a6dd9" opacity="0.5"/>
+        </svg>
+        <div class="price-category">Automotive</div>
+        <div class="price-name">Key Programming</div>
+        <div class="price-range">K2,000 <span>fixed rate</span></div>
+        <div class="price-desc">Full transponder and remote key programming service. Covers all major vehicle brands. Includes diagnostic verification and testing after programming.</div>
+      </div>
+
+      <div class="price-card">
+        <svg class="price-icon" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="14" cy="18" r="9" stroke="#C9A84C" stroke-width="2" fill="none" opacity="0.3"/>
+          <rect x="22" y="16" width="22" height="4" rx="2" fill="#C9A84C" opacity="0.25"/>
+          <rect x="26" y="20" width="3" height="6" rx="1" fill="#C9A84C" opacity="0.25"/>
+          <rect x="33" y="20" width="3" height="5" rx="1" fill="#C9A84C" opacity="0.25"/>
+          <rect x="41" y="20" width="3" height="7" rx="1" fill="#C9A84C" opacity="0.25"/>
+        </svg>
+        <div class="price-category">Automotive</div>
+        <div class="price-name">Ordinary Car Key</div>
+        <div class="price-range">K150 <span>– K250</span></div>
+        <div class="price-desc">Standard mechanical car key cutting. Price varies by vehicle make and key complexity. Fast same-day service available.</div>
+      </div>
+
+      <div class="price-card">
+        <svg class="price-icon" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="14" cy="18" r="9" stroke="#C9A84C" stroke-width="2" fill="none" opacity="0.3"/>
+          <rect x="22" y="16" width="22" height="4" rx="2" fill="#C9A84C" opacity="0.25"/>
+          <rect x="26" y="20" width="4" height="8" rx="1" fill="#C9A84C" opacity="0.25"/>
+          <rect x="34" y="20" width="4" height="6" rx="1" fill="#C9A84C" opacity="0.25"/>
+          <rect x="42" y="20" width="4" height="10" rx="1" fill="#C9A84C" opacity="0.25"/>
+        </svg>
+        <div class="price-category">Residential / Commercial</div>
+        <div class="price-name">Door Key</div>
+        <div class="price-range">K70 <span>– K200</span></div>
+        <div class="price-desc">Precision door key cutting for all standard and security lock types. Duplicates and originals.</div>
+      </div>
+
+      <div class="price-card">
+        <div class="price-category">Other Services</div>
+        <div class="price-name">More Options</div>
+        <div class="price-range" style="font-size:1.8rem;">Enquire <span>on call</span></div>
+        <div class="price-desc">Remote fobs, lock extraction, rekeying, security locks, and other specialist services. Contact us for a custom quote based on your exact needs.</div>
+        <div style="margin-top:24px;">
+          <a href="tel:0977533220" class="btn-primary" style="display:inline-flex;font-size:0.8rem;">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 01.36 2.84 2 2 0 012.34 1h3a2 2 0 012 1.72c.13 1 .38 1.97.74 2.91a2 2 0 01-.45 2.11L6.91 8.96a16 16 0 006.13 6.13l1.22-.82a2 2 0 012.11-.45c.94.36 1.91.61 2.91.74A2 2 0 0122 16.92z"/></svg>
+            0977 533 220
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT & HOURS -->
+<section class="info-bg" id="contact">
+  <div class="section-inner">
+    <p class="section-label">Find Us</p>
+    <h2>Hours & <em>Contact</em></h2>
+    <div class="info-layout">
+
+      <!-- LEFT: contact info + hours -->
+      <div>
+        <div class="info-block">
+          <div class="info-title">Owner / Specialist</div>
+          <div class="info-value">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Brian Sichilima
+          </div>
+        </div>
+        <div class="info-block">
+          <div class="info-title">Phone</div>
+          <div class="info-value">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 01.36 2.84 2 2 0 012.34 1h3a2 2 0 012 1.72c.13 1 .38 1.97.74 2.91a2 2 0 01-.45 2.11L6.91 8.96a16 16 0 006.13 6.13l1.22-.82a2 2 0 012.11-.45c.94.36 1.91.61 2.91.74A2 2 0 0122 16.92z"/></svg>
+            <a href="tel:0977533220" style="color:var(--gold);text-decoration:none;">0977 533 220</a>
+          </div>
+        </div>
+        <div class="info-block">
+          <div class="info-title">Email</div>
+          <div class="info-value">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <a href="mailto:sichilimabrian012@gmail.com" style="color:var(--gold);text-decoration:none;">sichilimabrian012@gmail.com</a>
+          </div>
+        </div>
+        <div class="info-block">
+          <div class="info-title">Location</div>
+          <div class="info-value">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Puma Filling Station, Kanyama, Lusaka
+          </div>
+        </div>
+
+        <div class="info-block" style="margin-top:48px;">
+          <div class="info-title">Operating Hours</div>
+          <div class="hours-grid">
+            <div class="hours-day">Sunday</div>
+            <div class="hours-time open">07:30 — 18:00</div>
+            <div class="hours-day">Monday</div>
+            <div class="hours-time open">07:30 — 18:00</div>
+            <div class="hours-day">Tuesday</div>
+            <div class="hours-time open">07:30 — 18:00</div>
+            <div class="hours-day">Wednesday</div>
+            <div class="hours-time open">07:30 — 18:00</div>
+            <div class="hours-day">Thursday</div>
+            <div class="hours-time open">07:30 — 18:00</div>
+            <div class="hours-day">Friday</div>
+            <div class="hours-time open">07:30 — 18:00</div>
+            <div class="hours-day">Saturday</div>
+            <div class="hours-time closed">Closed</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: decorative key panel -->
+      <div class="info-key-panel">
+        <div class="big-key-svg">
+          <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- outer glow ring -->
+            <circle cx="55" cy="55" r="50" stroke="#C9A84C" stroke-width="1" stroke-dasharray="6 4" opacity="0.2"/>
+            <!-- key bow -->
+            <circle cx="55" cy="55" r="36" stroke="#C9A84C" stroke-width="3.5" fill="none"/>
+            <circle cx="55" cy="55" r="22" stroke="#C9A84C" stroke-width="2" fill="none" opacity="0.4"/>
+            <circle cx="55" cy="55" r="9" fill="#C9A84C" opacity="0.6"/>
+            <!-- key shaft -->
+            <rect x="86" y="51.5" width="50" height="7" rx="3.5" fill="#C9A84C"/>
+            <!-- teeth -->
+            <rect x="92" y="58.5" width="7" height="14" rx="2" fill="#C9A84C" opacity="0.8"/>
+            <rect x="105" y="58.5" width="7" height="10" rx="2" fill="#C9A84C" opacity="0.8"/>
+            <rect x="118" y="58.5" width="7" height="18" rx="2" fill="#C9A84C" opacity="0.8"/>
+            <!-- blue accent ring -->
+            <circle cx="55" cy="55" r="44" stroke="#2a6dd9" stroke-width="1" stroke-dasharray="3 8" opacity="0.3"/>
+            <!-- lock symbol inside bow -->
+            <rect x="46" y="48" width="18" height="14" rx="3" stroke="#C9A84C" stroke-width="2" fill="none" opacity="0.4"/>
+            <path d="M51 48 V44 A4 4 0 0 1 59 44 V48" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.4"/>
+          </svg>
+        </div>
+        <div class="motto">Any Key<br>Any Time</div>
+        <div class="motto-sub">Brisch Key Programming Giants</div>
+        <div style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+          <a href="tel:0977533220" class="btn-primary" style="font-size:0.82rem;">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 01.36 2.84 2 2 0 012.34 1h3a2 2 0 012 1.72c.13 1 .38 1.97.74 2.91a2 2 0 01-.45 2.11L6.91 8.96a16 16 0 006.13 6.13l1.22-.82a2 2 0 012.11-.45c.94.36 1.91.61 2.91.74A2 2 0 0122 16.92z"/></svg>
+            Call Us
+          </a>
+          <a href="mailto:sichilimabrian012@gmail.com" class="btn-outline" style="font-size:0.82rem;">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Email
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">BRISCH<span>.</span>KEYS</div>
+      <div class="footer-copy" style="margin-top:8px;">Puma Filling Station, Kanyama, Lusaka</div>
+    </div>
+    <div class="footer-copy" style="text-align:center;">
+      &copy; 2024 Brisch Key Programming Giants<br>
+      <span style="color:var(--gold-dim);">Any Key. Any Time.</span>
+    </div>
+    <div class="footer-contact">
+      <a href="tel:0977533220">0977 533 220</a>
+      <a href="mailto:sichilimabrian012@gmail.com">sichilimabrian012@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
