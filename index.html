@@ -453,10 +453,21 @@
   }
   .service-card {
     background: var(--panel);
-    padding: 44px 36px;
+    padding: 0 36px 44px;
     position: relative;
     overflow: hidden;
     transition: background 0.3s;
+  }
+  .service-card .service-name,
+  .service-card .service-desc,
+  .service-card .service-badge,
+  .service-card .service-wa,
+  .service-card br {
+    display: block;
+  }
+  /* Cards with SVG icons keep their original padding */
+  .service-card.icon-card {
+    padding: 44px 36px;
   }
   .service-card::before {
     content: '';
@@ -903,18 +914,10 @@
     <div class="services-grid">
 
       <div class="service-card">
-        <svg class="service-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Car key with chip symbol -->
-          <rect x="2" y="14" width="26" height="18" rx="4" stroke="currentColor" stroke-width="2.5" fill="none"/>
-          <rect x="6" y="18" width="18" height="10" rx="2" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.5"/>
-          <circle cx="15" cy="23" r="3" fill="currentColor" opacity="0.7"/>
-          <rect x="28" y="21.5" width="20" height="3" rx="1.5" fill="currentColor"/>
-          <rect x="34" y="24.5" width="4" height="6" rx="1" fill="currentColor" opacity="0.8"/>
-          <rect x="42" y="24.5" width="4" height="8" rx="1" fill="currentColor" opacity="0.8"/>
-          <!-- signal waves -->
-          <path d="M3 10 Q8 6 13 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.5"/>
-          <path d="M1 7 Q8 1 15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.3"/>
-        </svg>
+        <div style="width:100%;height:160px;overflow:hidden;margin-bottom:24px;position:relative;">
+          <img src="https://i.imgur.com/517o3sV.jpeg" alt="Car Key Programming" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.9);transition:transform 0.4s,filter 0.3s;" onmouseover="this.style.transform='scale(1.04)';this.style.filter='brightness(1)'" onmouseout="this.style.transform='scale(1)';this.style.filter='brightness(0.9)'">
+          <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(20,20,20,0.7));pointer-events:none;"></div>
+        </div>
         <div class="service-name">Car Key Programming</div>
         <div class="service-desc">Full remote and transponder key programming for all makes and models. Your car security, professionally handled.</div>
         <div class="service-badge">Most Requested</div>
@@ -926,16 +929,10 @@
       </div>
 
       <div class="service-card">
-        <svg class="service-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- ordinary car key -->
-          <circle cx="16" cy="20" r="11" stroke="currentColor" stroke-width="2.5" fill="none"/>
-          <circle cx="16" cy="20" r="5" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.5"/>
-          <circle cx="16" cy="20" r="2" fill="currentColor" opacity="0.7"/>
-          <rect x="26" y="18" width="24" height="4" rx="2" fill="currentColor"/>
-          <rect x="30" y="22" width="4" height="7" rx="1" fill="currentColor" opacity="0.8"/>
-          <rect x="38" y="22" width="4" height="5" rx="1" fill="currentColor" opacity="0.8"/>
-          <rect x="46" y="22" width="4" height="9" rx="1" fill="currentColor" opacity="0.8"/>
-        </svg>
+        <div style="width:100%;height:160px;overflow:hidden;margin-bottom:24px;position:relative;">
+          <img src="https://i.imgur.com/ndCAARo.jpeg" alt="Ordinary Car Keys" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.9);transition:transform 0.4s,filter 0.3s;" onmouseover="this.style.transform='scale(1.04)';this.style.filter='brightness(1)'" onmouseout="this.style.transform='scale(1)';this.style.filter='brightness(0.9)'">
+          <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(20,20,20,0.7));pointer-events:none;"></div>
+        </div>
         <div class="service-name">Ordinary Car Keys</div>
         <div class="service-desc">Standard mechanical car key cutting — precise, fast, and affordable. Walk in, drive out.</div>
         <div class="service-badge">K150 – K250</div>
@@ -947,16 +944,10 @@
       </div>
 
       <div class="service-card">
-        <svg class="service-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- house/door key -->
-          <circle cx="14" cy="18" r="10" stroke="currentColor" stroke-width="2.5" fill="none"/>
-          <circle cx="14" cy="18" r="4" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.4"/>
-          <rect x="23" y="15.5" width="27" height="5" rx="2" fill="currentColor"/>
-          <!-- door key teeth -->
-          <rect x="30" y="20.5" width="4" height="8" rx="1.5" fill="currentColor" opacity="0.8"/>
-          <rect x="38" y="20.5" width="4" height="6" rx="1.5" fill="currentColor" opacity="0.8"/>
-          <rect x="46" y="20.5" width="4" height="10" rx="1.5" fill="currentColor" opacity="0.8"/>
-        </svg>
+        <div style="width:100%;height:160px;overflow:hidden;margin-bottom:24px;position:relative;">
+          <img src="https://i.imgur.com/B37MA3z.jpeg" alt="Door Key Cutting" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.9);transition:transform 0.4s,filter 0.3s;" onmouseover="this.style.transform='scale(1.04)';this.style.filter='brightness(1)'" onmouseout="this.style.transform='scale(1)';this.style.filter='brightness(0.9)'">
+          <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(20,20,20,0.7));pointer-events:none;"></div>
+        </div>
         <div class="service-name">Door Key Cutting</div>
         <div class="service-desc">Residential and commercial door keys cut to precision. Duplicate or original, we handle both.</div>
         <div class="service-badge">K70 – K200</div>
@@ -968,18 +959,10 @@
       </div>
 
       <div class="service-card">
-        <svg class="service-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- remote/fob -->
-          <rect x="8" y="6" width="22" height="36" rx="6" stroke="currentColor" stroke-width="2.5" fill="none"/>
-          <rect x="13" y="11" width="12" height="8" rx="2" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.5"/>
-          <circle cx="19" cy="27" r="3" fill="currentColor" opacity="0.7"/>
-          <circle cx="11" cy="27" r="3" fill="currentColor" opacity="0.4"/>
-          <circle cx="27" cy="27" r="3" fill="currentColor" opacity="0.4"/>
-          <circle cx="19" cy="35" r="3" fill="currentColor" opacity="0.4"/>
-          <!-- signal -->
-          <path d="M36 18 Q42 14 48 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
-          <path d="M38 22 Q42 19 46 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.4"/>
-        </svg>
+        <div style="width:100%;height:160px;overflow:hidden;margin-bottom:24px;position:relative;">
+          <img src="https://i.imgur.com/mX2utjN.jpeg" alt="Remote Key Fobs" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.9);transition:transform 0.4s,filter 0.3s;" onmouseover="this.style.transform='scale(1.04)';this.style.filter='brightness(1)'" onmouseout="this.style.transform='scale(1)';this.style.filter='brightness(0.9)'">
+          <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(20,20,20,0.7));pointer-events:none;"></div>
+        </div>
         <div class="service-name">Remote Key Fobs</div>
         <div class="service-desc">Remote control key fob programming and replacement for all vehicle brands. Quick turnaround guaranteed.</div>
         <div class="service-badge">Ask for Quote</div>
@@ -990,7 +973,7 @@
         </a>
       </div>
 
-      <div class="service-card">
+      <div class="service-card icon-card">
         <svg class="service-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
           <!-- wrench + key combo -->
           <path d="M10 42 L30 22" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
